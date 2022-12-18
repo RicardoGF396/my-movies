@@ -46,7 +46,7 @@ function Form({ peliculas, setPeliculas, pelicula, setPelicula }) {
       setTimeout(() => {
         setIsEmpty(false);
       }, 3000);
-
+    } else {
       /* Creamos el objeto */
       const objetoPelicula = {
         nombre,
