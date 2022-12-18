@@ -39,7 +39,7 @@ function MovieCard({ pelicula, setPelicula, eliminarPelicula }) {
     }
 
     const handleEliminar = () => {
-      const respuesta = confirm('¿Seguro que quieres eliminar este paciente?')
+      const respuesta = confirm('¿Seguro que quieres eliminar esta película?')
       respuesta ? eliminarPelicula(id) : null;
     }
 

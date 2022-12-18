@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <div className="App w-full h-full bg-[#202123] flex lg:flex-row flex-col px-8 lg:px-0">
+    <div className="App w-full h-full bg-[#202123] flex lg:flex-row flex-col px-2 lg:px-0">
       <Form 
         peliculas={peliculas} 
         setPeliculas={setPeliculas}
