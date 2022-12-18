@@ -1,0 +1,34 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.floating-input>input::placeholder {
+  color: transparent;
+}
+
+.floating-input>input, .floating-input>textarea, .floating-input>select {
+  @apply font-poppins outline-none
+}
+
+.floating-input>input:focus~label {
+  @apply text-gray-200
+}
+
+.floating-input>textarea:focus~label {
+  @apply text-gray-200
+}
+
+
+#fecha::-webkit-calendar-picker-indicator {
+  filter: invert(57%) sepia(0%) saturate(316%) hue-rotate(234deg) brightness(97%) contrast(83%);
+}
+
+.option-card:hover{
+  filter: brightness(1000%);
+}
+
+.filtroBlanco{
+  filter: brightness(1000%);
+}
