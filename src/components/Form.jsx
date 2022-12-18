@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import EmptyFields from "./EmptyFields";
 
-function Form({peliculas, setPeliculas, pelicula, setPelicula}) {
-
+function Form({ peliculas, setPeliculas, pelicula, setPelicula }) {
   const [nombre, setNombre] = useState("");
   const [opinion, setOpinion] = useState("");
   const [fecha, setFecha] = useState("");
@@ -13,81 +12,84 @@ function Form({peliculas, setPeliculas, pelicula, setPelicula}) {
 
   const generarId = () => {
     const random = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36)
-    return random + fecha
-  }
+    const fecha = Date.now().toString(36);
+    return random + fecha;
+  };
 
   useEffect(() => {
-    if(Object.keys(pelicula).length > 0){
-      setNombre(pelicula.nombre)
-      setOpinion(pelicula.opinion)
-      setFecha(pelicula.fecha)
-      setPlataforma(pelicula.plataforma)
-      setClasificacion(pelicula.clasificacion)
-      setCalificacion(pelicula.calificacion)
+    if (Object.keys(pelicula).length > 0) {
+      setNombre(pelicula.nombre);
+      setOpinion(pelicula.opinion);
+      setFecha(pelicula.fecha);
+      setPlataforma(pelicula.plataforma);
+      setClasificacion(pelicula.clasificacion);
+      setCalificacion(pelicula.calificacion);
     }
-  }, [pelicula])
+  }, [pelicula]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     /* Revisar que nada este vacío */
     if (
-      [nombre, opinion, fecha, plataforma, clasificacion, calificacion].includes(
-        ""
-      )
+      [
+        nombre,
+        opinion,
+        fecha,
+        plataforma,
+        clasificacion,
+        calificacion,
+      ].includes("")
     ) {
       setIsEmpty(true);
 
       setTimeout(() => {
         setIsEmpty(false);
       }, 3000);
-    } 
 
-    /* Creamos el objeto */
-    const objetoPelicula = {
-      nombre,
-      opinion,
-      fecha,
-      plataforma,
-      clasificacion,
-      calificacion,    
+      /* Creamos el objeto */
+      const objetoPelicula = {
+        nombre,
+        opinion,
+        fecha,
+        plataforma,
+        clasificacion,
+        calificacion,
+      };
+
+      /* Revisamos si vamos editar o agregar */
+      if (pelicula.id) {
+        // Editando el registro
+        console.log(pelicula.id);
+        objetoPelicula.id = pelicula.id;
+        console.log(objetoPelicula);
+        console.log(pelicula);
+
+        const peliculasActualizadas = peliculas.map((peliculaState) =>
+          peliculaState.id === pelicula.id ? objetoPelicula : peliculaState
+        );
+
+        setPeliculas(peliculasActualizadas);
+        setPelicula({});
+      } else {
+        //Nuevo registro
+        objetoPelicula.id = generarId();
+        setPeliculas([...peliculas, objetoPelicula]);
+      }
+
+      //Reiniciar formulario
+      setNombre("");
+      setOpinion("");
+      setFecha("");
+      setPlataforma("");
+      setClasificacion("");
+      setCalificacion("");
     }
-
-    /* Revisamos si vamos editar o agregar */
-    if(pelicula.id){
-      // Editando el registro
-      console.log(pelicula.id)
-      objetoPelicula.id = pelicula.id;
-      console.log(objetoPelicula);
-      console.log(pelicula);
-
-      const peliculasActualizadas = peliculas.map(peliculaState => 
-        peliculaState.id === pelicula.id ? objetoPelicula : peliculaState)
-
-      setPeliculas(peliculasActualizadas)
-      setPelicula({})
-
-    }else{
-      //Nuevo registro
-      objetoPelicula.id = generarId();
-      setPeliculas([...peliculas, objetoPelicula])
-    }
-
-    //Reiniciar formulario
-    setNombre('')
-    setOpinion('')
-    setFecha('')
-    setPlataforma('')
-    setClasificacion('')
-    setCalificacion('')
-    
   };
 
   return (
     <div className="flex justify-center items-center w-full lg:w-1/2">
       <div className="lg:w-[80%] w-[95%] lg:mt-0 mt-12 ">
-
         <h1 className="text-white text-2xl font-semibold font-poppins">
           Lista de peliculas
         </h1>
@@ -98,7 +100,7 @@ function Form({peliculas, setPeliculas, pelicula, setPelicula}) {
 
         <form onSubmit={handleSubmit} className="mt-11">
           {isEmpty && (
-            <EmptyFields textError={'Hay campos vacíos, completalos.'}/>
+            <EmptyFields textError={"Hay campos vacíos, completalos."} />
           )}
 
           {/* ==== Nombre de la pelícla ===== */}
@@ -272,7 +274,7 @@ function Form({peliculas, setPeliculas, pelicula, setPelicula}) {
             type="submit"
             className="w-full bg-secondary-gray text-white p-3 rounded-md font-semibold font-poppins h-16 hover:bg-[#4F5155] transition-all"
           >
-            {pelicula.id ? 'Guardar cambios' : 'Agregar película'}
+            {pelicula.id ? "Guardar cambios" : "Agregar película"}
           </button>
         </form>
       </div>
